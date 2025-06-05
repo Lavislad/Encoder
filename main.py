@@ -29,12 +29,24 @@ def DecodeWord(bin_code):
     return bytes_data
 
 def FindSum(encoded_word, open_key):
-    sum = []
-    for sym in encoded_word:
-        for index, num in enumerate(sym):
-            if num == 1:
-                sum.append(open_key[index])
-    return sum
+    total = {}
+    encoded_word_list = encoded_word.split()
+    print(f'encoded_word_list: {encoded_word_list}')
+    for encoded_sym in encoded_word_list:
+        total[f'{encoded_sym}'] = []
+        for index, num in enumerate(encoded_sym):
+            if num == '1':
+                total[encoded_sym].append(open_key[index])
+    return total
+
+def FindCiphergram(dict):
+    total = {}
+    for encoded_sym in dict:
+        total[encoded_sym] = 0
+        for num in dict[encoded_sym]:
+            total[encoded_sym] += num
+    return total
+
 
 OPEN_KEY = CreateOpenKey(CLOSED_KEY, n, m)
 print(OPEN_KEY)
@@ -42,7 +54,9 @@ n1 = FindN1(n, m)
 print(n1)
 encoded_word = EncodeWord('Привет')
 print(encoded_word)
-sum = FindSum(encoded_word, OPEN_KEY)
-print(sum)
+total = FindSum(encoded_word, OPEN_KEY)
+print(total)
+sum_ciph = FindCiphergram(total)
+print(sum_ciph)
 decoded_word = DecodeWord(encoded_word)
 print(decoded_word)
