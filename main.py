@@ -4,13 +4,13 @@ n = 7
 m = 435
 CLOSED_KEY = [1, 3, 5, 12, 25, 52, 115, 220]
 
-def CreateOpenKey(closed_key, n, m):
+def create_open_key(closed_key, n, m):
     open_key = []
     for el in closed_key:
         open_key.append(el * n % m)
     return open_key
 
-def FindN1(n, m):
+def find_n1(n, m):
     n1 = 1
     success = False
     while success is False:
@@ -20,12 +20,12 @@ def FindN1(n, m):
             n1+=1
     return n1
 
-def DecodeWord(word):
+def decode_word(word):
     binary_list = word.split()
     bytes_data = bytes([int(b, 2) for b in binary_list]).decode('cp1251')
     return bytes_data
 
-def FindSum(word, open_key):
+def find_sum(word, open_key):
     total = {}
     encoded_word_list = word.split()
     print(f'encoded_word_list: {encoded_word_list}')
@@ -48,23 +48,23 @@ word = Word('Привет')
 print(word.make_list_of_word())
 encoded_word = word.encode_word()
 print(encoded_word)
-OPEN_KEY = CreateOpenKey(CLOSED_KEY, n, m)
-sum = FindSum(encoded_word, OPEN_KEY)
+OPEN_KEY = create_open_key(CLOSED_KEY, n, m)
+sum = find_sum(encoded_word, OPEN_KEY)
 print(sum)
 ciph = FindCiphergram(sum)
 print(ciph)
-print(DecodeWord(encoded_word))
+print(decode_word(encoded_word))
 
 # print(OPEN_KEY)
-# n1 = FindN1(n, m)
+# n1 = find_n1(n, m)
 # print(n1)
 # encoded_word = EncodeWord('Привет')
 # print(encoded_word)
-# total = FindSum(encoded_word, OPEN_KEY)
+# total = find_sum(encoded_word, OPEN_KEY)
 # print(total)
 # sum_ciph = FindCiphergram(total)
 # print(sum_ciph)
-# decoded_word = DecodeWord(encoded_word)
+# decoded_word = decode_word(encoded_word)
 # print(decoded_word)
 
 # class Class():
