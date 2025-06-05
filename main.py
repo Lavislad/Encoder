@@ -25,11 +25,35 @@ def DecodeWord(word):
     bytes_data = bytes([int(b, 2) for b in binary_list]).decode('cp1251')
     return bytes_data
 
-a = Word('Привет')
-print(a.encode_word())
-print(a.make_list_of_word())
+def FindSum(word, open_key):
+    total = {}
+    encoded_word_list = word.split()
+    print(f'encoded_word_list: {encoded_word_list}')
+    for encoded_sym in encoded_word_list:
+        total[f'{encoded_sym}'] = []
+        for index, num in enumerate(encoded_sym):
+            if num == '1':
+                total[encoded_sym].append(open_key[index])
+    return total
 
-# OPEN_KEY = CreateOpenKey(CLOSED_KEY, n, m)
+def FindCiphergram(dict):
+    total = {}
+    for encoded_sym in dict:
+        total[encoded_sym] = 0
+        for num in dict[encoded_sym]:
+            total[encoded_sym] += num
+    return total
+
+word = Word('Привет')
+print(word.make_list_of_word())
+encoded_word = word.encode_word()
+print(encoded_word)
+OPEN_KEY = CreateOpenKey(CLOSED_KEY, n, m)
+sum = FindSum(encoded_word, OPEN_KEY)
+print(sum)
+ciph = FindCiphergram(sum)
+print(ciph)
+
 # print(OPEN_KEY)
 # n1 = FindN1(n, m)
 # print(n1)
