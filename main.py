@@ -53,6 +53,7 @@ sum = FindSum(encoded_word, OPEN_KEY)
 print(sum)
 ciph = FindCiphergram(sum)
 print(ciph)
+print(DecodeWord(encoded_word))
 
 # print(OPEN_KEY)
 # n1 = FindN1(n, m)
