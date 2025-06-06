@@ -1,4 +1,6 @@
 from lib import Word
+from tabulate import tabulate
+
 
 n = 7
 m = 435
@@ -36,7 +38,7 @@ def find_sum(word, open_key):
                 total[encoded_sym].append(open_key[index])
     return total
 
-def FindCiphergram(dict):
+def find_ciphergram(dict):
     total = {}
     for encoded_sym in dict:
         total[encoded_sym] = 0
@@ -44,16 +46,33 @@ def FindCiphergram(dict):
             total[encoded_sym] += num
     return total
 
+def make_table_of_word(word, encoded_word, sum_dict, ciphergram):
+    data = []
+    list_of_word = word.make_list_of_word()
+    encoded_word_list = encoded_word.split()
+    for index in range(len(list_of_word)):
+        row = []
+        row.append(list_of_word[index])
+        row.append(encoded_word_list[index])
+        row.append(sum_dict[encoded_word_list[index]])
+        row.append(ciphergram[encoded_word_list[index]])
+        data.append(row)
+    headers = ['Symbol', 'Bin code', 'Sum', 'Ciphergram']
+    return tabulate(data, headers=headers, tablefmt='grid')
+
+
 word = Word('Привет')
 print(word.make_list_of_word())
 encoded_word = word.encode_word()
 print(encoded_word)
 OPEN_KEY = create_open_key(CLOSED_KEY, n, m)
 sum = find_sum(encoded_word, OPEN_KEY)
-print(sum)
-ciph = FindCiphergram(sum)
+print(f'sum: {sum}')
+ciph = find_ciphergram(sum)
 print(ciph)
 print(decode_word(encoded_word))
+table = make_table_of_word(word, encoded_word, sum, ciph)
+print(table)
 
 # print(OPEN_KEY)
 # n1 = find_n1(n, m)
@@ -62,7 +81,7 @@ print(decode_word(encoded_word))
 # print(encoded_word)
 # total = find_sum(encoded_word, OPEN_KEY)
 # print(total)
-# sum_ciph = FindCiphergram(total)
+# sum_ciph = find_ciphergram(total)
 # print(sum_ciph)
 # decoded_word = decode_word(encoded_word)
 # print(decoded_word)
